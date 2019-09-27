@@ -1,0 +1,12 @@
+.idea/
+.idea/workspace.xml
+out/
+*.iml
+*.txt
+*.csv
+/.gradle
+*.gradle
+gradle
+build.gradle
+gradlew
+gradlew.bat
