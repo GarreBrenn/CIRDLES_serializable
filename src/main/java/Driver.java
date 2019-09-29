@@ -15,7 +15,13 @@ public class Driver {
         }
 
         print("stud2 deserializing...");
-        Student stud2 = Student.deserialize(filename);
+        Student stud2 = new Student();
+        try {
+            stud2 = Student.deserialize(filename);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         print("comparing...");
         if (stud.compareTo(stud2) == 0) {

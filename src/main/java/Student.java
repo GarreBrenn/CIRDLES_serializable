@@ -31,7 +31,8 @@ public class Student implements Comparable<Student>, Serializable{
         this.cwid = cwid;
     }
 
-    private Student() {
+    //changed access to public in order to use in driver class
+    public Student() {
         fname = "none";
         lname = "none";
         cwid = "0";
@@ -81,8 +82,11 @@ public class Student implements Comparable<Student>, Serializable{
         }*/
     }
 
-    public static Student deserialize(String filename) {
-        //deserialize to csv using java.util.nio
+    public static Student deserialize(String filename)
+            throws IOException, ClassNotFoundException {
+        ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
+        return (Student) is.readObject();
+        /*
         try (Scanner scanner = new Scanner(new File(filename));
         ) {
             scanner.nextLine();
@@ -97,6 +101,7 @@ public class Student implements Comparable<Student>, Serializable{
             System.out.println(e + "\nBase Student object is returned");
             return new Student();
         }
+         */
     }
 
     public void printInfo() {
