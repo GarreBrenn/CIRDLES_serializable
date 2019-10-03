@@ -44,15 +44,13 @@ public class Student implements Comparable<Student>, Serializable{
         this.cwid = cwid;
     }
 
-    public static void serialize(Student stud, String filename) throws IOException {
+    public static void serializeToBinary(Student stud, String filename) throws IOException {
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename));
         os.writeObject(stud);
+    }
 
-
-        /*
+    public static void serializeToCSV(Student stud, String filename) throws FileNotFoundException, IOException {
         final String CSV_SEPARATOR = ",";
-        try
-        {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
             StringBuffer oneLine = new StringBuffer();
             oneLine.append("First Name,Last Name,CWID");
@@ -70,38 +68,23 @@ public class Student implements Comparable<Student>, Serializable{
 
             bw.flush();
             bw.close();
-        }
-        catch (UnsupportedEncodingException e) {
-            System.out.print(e);
-        }
-        catch (FileNotFoundException e){
-            System.out.print(e);
-        }
-        catch (IOException e){
-            System.out.print(e);
-        }*/
     }
 
-    public static Student deserialize(String filename)
+    public static Student deserializeFromBinary(String filename)
             throws IOException, ClassNotFoundException {
         ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
         return (Student) is.readObject();
-        /*
-        try (Scanner scanner = new Scanner(new File(filename));
-        ) {
-            scanner.nextLine();
-            String firstLine = scanner.nextLine();
-            String[] firstLineArry = firstLine.split(",");
-            String fname = firstLineArry[0];
-            String lname = firstLineArry[1];
-            String cwid = firstLineArry[2];
-            return new Student(fname, lname, cwid);
-        }
-        catch (FileNotFoundException e) {
-            System.out.println(e + "\nBase Student object is returned");
-            return new Student();
-        }
-         */
+    }
+
+    public static Student deserializeFromCSV(String filename) throws FileNotFoundException{
+        Scanner scanner = new Scanner(new File(filename));
+        scanner.nextLine();
+        String firstLine = scanner.nextLine();
+        String[] firstLineArry = firstLine.split(",");
+        String fname = firstLineArry[0];
+        String lname = firstLineArry[1];
+        String cwid = firstLineArry[2];
+        return new Student(fname, lname, cwid);
     }
 
     public void printInfo() {

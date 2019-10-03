@@ -6,9 +6,9 @@ public class Driver {
     public void run() {
         Student stud = new Student("Garrett","Brenner","20131189");
 
-        print("stud serializing...");
+        print("stud serializing to CSV...");
         try {
-            Student.serialize(stud, filename);
+            Student.serializeToCSV(stud, filename);
         }
         catch (IOException e){
             System.out.println(e.getMessage());
@@ -17,7 +17,7 @@ public class Driver {
         print("stud2 deserializing...");
         Student stud2 = new Student();
         try {
-            stud2 = Student.deserialize(filename);
+            stud2 = Student.deserializeFromCSV(filename);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
