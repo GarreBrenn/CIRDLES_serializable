@@ -24,7 +24,7 @@ public class Driver {
         }
 
         print("comparing...");
-        if (stud.compareTo(stud2) == 0) {
+        if (stud.equals(stud2)) {
             print("The students are equal");
         }
         else {

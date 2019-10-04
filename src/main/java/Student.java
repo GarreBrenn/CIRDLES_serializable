@@ -102,4 +102,25 @@ public class Student implements Comparable<Student>, Serializable{
         return getInfo().compareTo(otherstud.getInfo());
     }
 
+    //why does @Override not overwrite parent class (Object.equals)?
+    public boolean equals(Object student) {
+        //first check if both are Student
+        if (student instanceof Student) {
+            //cast student to a Student (object)
+            Student otherstud = (Student) student;
+            //now check if each of the fields match independently
+            if (!this.getFname().equals(((Student) otherstud).getFname())) {
+                return false;
+            }
+            if (!this.getLname().equals(((Student) otherstud).getLname())) {
+                return false;
+            }
+            if (!this.getCwid().equals(((Student) otherstud).getCwid())) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
