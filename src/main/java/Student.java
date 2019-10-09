@@ -3,24 +3,24 @@ import java.nio.*;
 import java.util.*;
 
 public class Student implements Comparable<Student>, Serializable{
-    private String fname;
-    private String lname;
+    private String firstName;
+    private String lastName;
     private String cwid;
 
     public String getFname() {
-        return fname;
+        return firstName;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setFname(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLname() {
-        return lname;
+        return lastName;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setLname(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getCwid() {
@@ -33,14 +33,14 @@ public class Student implements Comparable<Student>, Serializable{
 
     //changed access to public in order to use in driver class
     public Student() {
-        fname = "none";
-        lname = "none";
+        firstName = "none";
+        lastName = "none";
         cwid = "0";
     }
 
-    public Student(String fname, String lname, String cwid) {
-        this.fname = fname;
-        this.lname = lname;
+    public Student(String firstName, String lastName, String cwid) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.cwid = cwid;
     }
 
@@ -59,9 +59,9 @@ public class Student implements Comparable<Student>, Serializable{
             bw.newLine();
 
             oneLine = new StringBuffer();
-            oneLine.append(stud.fname);
+            oneLine.append(stud.firstName);
             oneLine.append(CSV_SEPARATOR);
-            oneLine.append(stud.lname);
+            oneLine.append(stud.lastName);
             oneLine.append(CSV_SEPARATOR);
             oneLine.append(stud.cwid);
             bw.write(oneLine.toString());
@@ -81,20 +81,20 @@ public class Student implements Comparable<Student>, Serializable{
         scanner.nextLine();
         String firstLine = scanner.nextLine();
         String[] firstLineArry = firstLine.split(",");
-        String fname = firstLineArry[0];
-        String lname = firstLineArry[1];
+        String firstName = firstLineArry[0];
+        String lastName = firstLineArry[1];
         String cwid = firstLineArry[2];
-        return new Student(fname, lname, cwid);
+        return new Student(firstName, lastName, cwid);
     }
 
     public void printInfo() {
-        System.out.println("First name: " + fname);
-        System.out.println("Last name: " + lname);
+        System.out.println("First name: " + firstName);
+        System.out.println("Last name: " + lastName);
         System.out.println("CWID: " + cwid);
     }
 
     private String getInfo() {
-        return fname + lname + cwid;
+        return firstName + lastName + cwid;
     }
 
     @Override
@@ -104,23 +104,26 @@ public class Student implements Comparable<Student>, Serializable{
 
     //why does @Override not overwrite parent class (Object.equals)?
     public boolean equals(Object student) {
+        //variable to hold what's returned
+        boolean isTrue = true;
+
         //first check if both are Student
         if (student instanceof Student) {
             //cast student to a Student (object)
             Student otherstud = (Student) student;
             //now check if each of the fields match independently
             if (!this.getFname().equals(((Student) otherstud).getFname())) {
-                return false;
+                isTrue = false;
             }
             if (!this.getLname().equals(((Student) otherstud).getLname())) {
-                return false;
+                isTrue = false;
             }
             if (!this.getCwid().equals(((Student) otherstud).getCwid())) {
-                return false;
+                isTrue = false;
             }
-            return true;
+
         }
-        return false;
+        return isTrue;
     }
 
 }
