@@ -33,9 +33,7 @@ public class Student implements Comparable<Student>, Serializable{
 
     //changed access to public in order to use in driver class
     public Student() {
-        firstName = "none";
-        lastName = "none";
-        cwid = "0";
+        this("none", "none", "0");
     }
 
     public Student(String firstName, String lastName, String cwid) {
@@ -112,16 +110,15 @@ public class Student implements Comparable<Student>, Serializable{
             //cast student to a Student (object)
             Student otherstud = (Student) student;
             //now check if each of the fields match independently
-            if (!this.getFname().equals(((Student) otherstud).getFname())) {
+            if (this.getFname().compareToIgnoreCase(otherstud.getFname()) != 0) {
                 isTrue = false;
             }
-            if (!this.getLname().equals(((Student) otherstud).getLname())) {
+            if (this.getLname().compareToIgnoreCase(otherstud.getLname()) != 0) {
                 isTrue = false;
             }
-            if (!this.getCwid().equals(((Student) otherstud).getCwid())) {
+            if (this.getCwid().compareToIgnoreCase(otherstud.getCwid()) != 0) {
                 isTrue = false;
             }
-
         }
         return isTrue;
     }
