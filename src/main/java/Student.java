@@ -100,11 +100,31 @@ public class Student implements Comparable<Student>, Serializable{
         return getInfo().compareTo(otherstud.getInfo());
     }
 
-    //why does @Override not overwrite parent class (Object.equals)?
+    @Override
+    public int hashCode() {
+        //not really sure I did this correctly
+        int result = 15;
+
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + cwid.hashCode();
+
+        return result;
+    }
+
+    @Override
     public boolean equals(Object student) {
+
+
         //variable to hold what's returned
         boolean isTrue = true;
 
+        if (this != student) {
+            isTrue = false;
+        }
+        if (student == null) {
+            isTrue = false;
+        }
         //first check if both are Student
         if (student instanceof Student) {
             //cast student to a Student (object)
