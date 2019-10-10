@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class Driver {
-    private String filename = "studentinfo.txt";
+    private String filename = "studentinfo";
 
     private boolean serializeToCSV(Student stud) {
         boolean successful = true;
@@ -13,6 +13,7 @@ public class Driver {
             System.out.println(e.getMessage());
             successful = false;
         }
+        stud.printInfo();
         return successful;
     }
 
@@ -20,7 +21,7 @@ public class Driver {
         print("stud2 deserializing...");
         Student stud2 = new Student();
         try {
-            stud2 = Student.deserializeFromCSV(filename);
+            stud2 = Student.deserializeFromCSV(new String(filename));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
