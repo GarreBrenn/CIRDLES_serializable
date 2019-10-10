@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.*;
 
 public class Student implements Comparable<Student>, Serializable{
@@ -49,12 +51,14 @@ public class Student implements Comparable<Student>, Serializable{
 
     public static void serializeToCSV(Student stud, String filename) throws FileNotFoundException, IOException {
         final String CSV_SEPARATOR = ",";
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
+        filename = filename + ".csv";
+        Path path = Paths.get(filename);
+        try(BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)){
             StringBuffer oneLine = new StringBuffer();
             oneLine.append("First Name,Last Name,CWID");
-            bw.write(oneLine.toString());
+            writer.write(oneLine.toString());
 
-            bw.newLine();
+            writer.newLine();
 
             oneLine = new StringBuffer();
             oneLine.append(stud.firstName);
@@ -62,10 +66,13 @@ public class Student implements Comparable<Student>, Serializable{
             oneLine.append(stud.lastName);
             oneLine.append(CSV_SEPARATOR);
             oneLine.append(stud.cwid);
-            bw.write(oneLine.toString());
+            writer.write(oneLine.toString());
 
-            bw.flush();
-            bw.close();
+            writer.flush();
+            writer.close();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     public static Student deserializeFromBinary(String filename)
@@ -75,6 +82,7 @@ public class Student implements Comparable<Student>, Serializable{
     }
 
     public static Student deserializeFromCSV(String filename) throws FileNotFoundException{
+        filename = filename + ".csv";
         Scanner scanner = new Scanner(new File(filename));
         scanner.nextLine();
         String firstLine = scanner.nextLine();
@@ -114,17 +122,9 @@ public class Student implements Comparable<Student>, Serializable{
 
     @Override
     public boolean equals(Object student) {
-
-
         //variable to hold what's returned
         boolean isTrue = true;
 
-        if (this != student) {
-            isTrue = false;
-        }
-        if (student == null) {
-            isTrue = false;
-        }
         //first check if both are Student
         if (student instanceof Student) {
             //cast student to a Student (object)
