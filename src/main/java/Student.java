@@ -3,6 +3,7 @@ import java.nio.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
+import com.thoughtworks.xstream.XStream;
 
 public class Student implements Comparable<Student>, Serializable{
     private String firstName;
@@ -53,7 +54,7 @@ public class Student implements Comparable<Student>, Serializable{
         final String CSV_SEPARATOR = ",";
         filename = filename + ".csv";
         Path path = Paths.get(filename);
-        try(BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)){
+        BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
             StringBuffer oneLine = new StringBuffer();
             oneLine.append("First Name,Last Name,CWID");
             writer.write(oneLine.toString());
@@ -70,9 +71,21 @@ public class Student implements Comparable<Student>, Serializable{
 
             writer.flush();
             writer.close();
-        }catch(IOException ex){
-            ex.printStackTrace();
-        }
+    }
+
+    public static void serializeToXML(Student stud, String filename)
+            throws FileNotFoundException, IOException {
+        XStream xstream = new XStream();
+        String xml = xstream.toXML(stud);
+
+        filename = filename + ".xml";
+        Path path = Paths.get(filename);
+        BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
+        StringBuffer oneLine = new StringBuffer();
+        oneLine.append(xml);
+        writer.write(oneLine.toString());
+        writer.flush();
+        writer.close();
     }
 
     public static Student deserializeFromBinary(String filename)
@@ -91,6 +104,15 @@ public class Student implements Comparable<Student>, Serializable{
         String lastName = firstLineArry[1];
         String cwid = firstLineArry[2];
         return new Student(firstName, lastName, cwid);
+    }
+
+    public static Student deserializeFromXML(String filename) throws FileNotFoundException, IOException{
+        XStream xstream = new XStream();
+        filename = filename + ".xml";
+        Path path = Paths.get(filename);
+        String fileStr = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+        System.out.println("FileStraasdfasdf: \n" + fileStr);
+        return (Student) xstream.fromXML(fileStr);
     }
 
     public void printInfo() {
