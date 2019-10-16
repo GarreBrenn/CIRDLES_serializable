@@ -152,6 +152,11 @@ public class Student implements Comparable<Student>, Serializable{
             //cast student to a Student (object)
             Student otherstud = (Student) student;
             //now check if each of the fields match independently
+
+            isTrue = isTrue && (this.getFname().compareToIgnoreCase(otherstud.getFname()) == 0);
+            isTrue = isTrue && (this.getLname().compareToIgnoreCase(otherstud.getLname()) == 0);
+            isTrue = isTrue && (this.getCwid().compareToIgnoreCase(otherstud.getCwid()) == 0);
+            /*
             if (this.getFname().compareToIgnoreCase(otherstud.getFname()) != 0) {
                 isTrue = false;
             }
@@ -161,6 +166,8 @@ public class Student implements Comparable<Student>, Serializable{
             if (this.getCwid().compareToIgnoreCase(otherstud.getCwid()) != 0) {
                 isTrue = false;
             }
+
+             */
         }
         return isTrue;
     }
