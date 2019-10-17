@@ -116,9 +116,9 @@ public class Student implements Comparable<Student>, Serializable{
     }
 
     public void printInfo() {
-        System.out.println("First name: " + firstName);
-        System.out.println("Last name: " + lastName);
-        System.out.println("CWID: " + cwid);
+        System.out.println("firstName: " + firstName);
+        System.out.println("lastName: " + lastName);
+        System.out.println("cwid: " + cwid);
     }
 
     private String getInfo() {
@@ -127,7 +127,7 @@ public class Student implements Comparable<Student>, Serializable{
 
     @Override
     public int compareTo(Student otherstud) {
-        return getInfo().compareTo(otherstud.getInfo());
+        return getInfo().compareToIgnoreCase(otherstud.getInfo());
     }
 
     @Override
@@ -156,18 +156,6 @@ public class Student implements Comparable<Student>, Serializable{
             isTrue = isTrue && (this.getFname().compareToIgnoreCase(otherstud.getFname()) == 0);
             isTrue = isTrue && (this.getLname().compareToIgnoreCase(otherstud.getLname()) == 0);
             isTrue = isTrue && (this.getCwid().compareToIgnoreCase(otherstud.getCwid()) == 0);
-            /*
-            if (this.getFname().compareToIgnoreCase(otherstud.getFname()) != 0) {
-                isTrue = false;
-            }
-            if (this.getLname().compareToIgnoreCase(otherstud.getLname()) != 0) {
-                isTrue = false;
-            }
-            if (this.getCwid().compareToIgnoreCase(otherstud.getCwid()) != 0) {
-                isTrue = false;
-            }
-
-             */
         }
         return isTrue;
     }
