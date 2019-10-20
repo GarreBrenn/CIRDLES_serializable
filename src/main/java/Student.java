@@ -111,7 +111,6 @@ public class Student implements Comparable<Student>, Serializable{
         filename = filename + ".xml";
         Path path = Paths.get(filename);
         String fileStr = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-        System.out.println("FileStraasdfasdf: \n" + fileStr);
         return (Student) xstream.fromXML(fileStr);
     }
 
